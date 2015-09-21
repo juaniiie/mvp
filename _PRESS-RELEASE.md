@@ -18,27 +18,36 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+  Gitter
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  Repo stats for the curious Github user. 
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  On the Gitter web app, the user will submit a github username and will instatly see interesting stats about any user's repos pop-up on their screen. For example, they may see percentage of repos written in JS.  
 
 ## Problem ##
   > Describe the problem your product solves.
+  Currently, there is no easy way to instanltly view repo language stats for any github user. 
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  Gitter is a one stop web app serving a specific curiosity.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+  Gitter will not change the world but it will make many github nerds very happy.
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+  Go to the web app and submit a github username!
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  Gitter was so easy and fun to use! It's interesting to see what languages my favorite repo makers use.
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  If you want to try out Gitter, check out our blog.
