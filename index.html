@@ -3,42 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title>Gitter</title>
-    <link rel="stylesheet" href="styles/styles.css">
-
+    <link rel="stylesheet" href="styles.css">
     <!-- dependencies -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
-    <!-- your scripts -->
-    <script src="env/config.js"></script>
-    <script src="scripts/app.js"></script>
+    <!-- scripts -->
+    <script src="app.js"></script>
   </head>
+  <header>
+    <h1>Gitter</h1>
+  </header>
   <body>
-    <div id="main">
-      <button id="refresh">
-      Refresh  
-      </button>
-      <h1>chatterbox</h1>
-        <select>
-        
-        </select>
-        <button id="chatroom">
-         Select Chatroom
-        </button>
-        <form>
-          <input type="text" placeholder="Create Chatroom">
-
-          </input>
-        </form>
+    <div>
       <form>
-        <textarea rows="4" cols="50">
-          
-        </textarea>
-        <button id="submit">
-          Submit
-        </button>
+        <input type="text" placeholder="github username" id="submit">
+        </input>
       </form>
     </div>
-    <div id="chats">
+    <div id='container'>
+      graphs
     </div>
   </body>
 </html>

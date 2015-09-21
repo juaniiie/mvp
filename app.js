@@ -1,47 +1,32 @@
-// YOUR CODE HERE:
-
 var app = {
   init: function() {
     $(document).ready(function() {
-      
-      //on click event listeners
-      //other actions to be done when app loads
-  
+      console.log('im in init');
+      $('form').submit(function() {
+        // console.log('im in summit function');
+        var username = $('input').val();
+        // console.log(username);
+        event.preventDefault();
+        $('input').val('');
+        app.get(username);
+      });
     });
   },
 
-  send: function(message) {
+  get: function(username) {
+    // console.log('im in get');
     $.ajax({
-    // This is the url you should use to communicate with the parse API server.
-      url: 'https://api.parse.com/1/classes/chatterbox',
-      type: 'POST',
-      data: JSON.stringify(message),
-      contentType: 'application/json',
-      success: function (data) {
-        console.log('chatterbox: Message sent');
-      },
-      error: function (data) {
-        console.error('chatterbox: Failed to send message');
-      }
-    });
-  },
-
-  fetch: function() {
-    $.ajax({
-      url:'https://api.parse.com/1/classes/chatterbox',
+      url:'https://api.github.com/users/' + username + '/repos',
       type: 'GET',
       success: function(data) {
-        app.displayMessages(data);
-        app.displayChatroomsMenu(data);
-        // console.log(data['results']);
+        console.log('Success! We have retrieved all repos for user: ' + username);
+        console.log(data);
       },
       error: function(data) {
+        console.log('Error: could not retrieve repos for user: ' + username);
       }
     });
-  },
-
-
-
+  }
 };
+app.init();
 
-app.init() ;

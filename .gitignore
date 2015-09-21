@@ -1,8 +1,10 @@
-### node etc ###
 
 # Logs
 logs
 *.log
+
+#TodoList
+TodoList.txt
 
 # Runtime data
 pids
