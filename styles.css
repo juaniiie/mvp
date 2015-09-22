@@ -8,7 +8,14 @@ form {
   text-align: center;
   font-weight: bold;
 }
-#langName {
+.langName {
   text-align: center;
   font-style: normal;
 }
+
+.legend {
+    font-size: 12px;
+  }
+  rect {
+    stroke-width: 2;
+  }
