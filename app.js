@@ -46,7 +46,7 @@ var app = {
     _.each(languages, function(bytes) {
       totalBytes += bytes;
     });
-    $('<div class="repo" id="chart' + index + '">' + repoName + '</div>').appendTo($('.stats'));
+    $('<div class="repo col-md-4" id="chart' + index + '"><div>' + repoName + '</div></div>').appendTo($('.stats'));
     //
     //appending text and percentages
     // _.each(languages, function(bytes, langName, languages) {
@@ -92,7 +92,7 @@ var app = {
     .append('path')
     .attr('d', arc)
     .attr('fill', function(d, i) {
-      return color(d.data.label + ':' + (((d.data.count / totalBytes) * 100).toFixed(1)) + '%');
+      return color(d.data.label + ' : ' + (((d.data.count / totalBytes) * 100).toFixed(1)) + ' %');
     });
 
     var legendRectSize = 18;
@@ -112,7 +112,7 @@ var app = {
     .attr('transform', function(d, i) {
       var height = legendRectSize + legendSpacing;
       var offset =  height * color.domain().length / 2;
-      var horz = -2 * legendRectSize;
+      var horz = -3 * legendRectSize;
       var vert = i * height - offset;
       return 'translate(' + horz + ',' + vert + ')';
     });
@@ -134,11 +134,8 @@ var app = {
   },
 
   clearDisplay: function() {
-    $('#repos').children().remove();
+    $('.stats').children().remove();
   }
 };
 
 app.init();
-
-
-// return color(d.data.label + ':' + (((d.data.count / totalBytes) * 100).toFixed(1)) + '%');

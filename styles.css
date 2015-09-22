@@ -5,8 +5,7 @@ form {
   text-align: center;
 }
 .repo {
-  text-align: center;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 .langName {
   text-align: center;
