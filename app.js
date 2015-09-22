@@ -17,6 +17,7 @@ var app = {
       type: 'GET',
       success: function(repos) {
         console.log('Success! We have retrieved all repos for user: ' + username);
+        $('<div class="username text-center" style="margin:10px 0 30px 0"><h2>' + username + '\'s repos' + '</h2></div>').appendTo($('.stats'));
         //for each repo make another ajax request for languages
         _.each(repos, function(repo, index) {
           var repoName = repo.name;
@@ -53,8 +54,12 @@ var app = {
     //   var ratio = ((bytes / totalBytes) * 100).toFixed(1);
     //   $('<div class="langName">' + langName + ':' + ratio + '%' + '</div>')
     //     .appendTo($('.repo:last-child'));
-
     // });
+  },
+
+  clearDisplay: function() {
+    $('.stats').children().remove();
+    $('.username').remove();
   },
 
   createPie: function(languages, repoName, index) {
@@ -79,7 +84,7 @@ var app = {
     .attr('transform', 'translate(' + (width / 2) +  ',' + (height / 2) + ')');
 
     var arc = d3.svg.arc()
-    .innerRadius(radius - donutWidth) 
+    .innerRadius(radius - donutWidth)
     .outerRadius(radius);
 
     var pie = d3.layout.pie()
@@ -123,18 +128,12 @@ var app = {
     .style('fill', color)
     .style('stroke', color);
 
-
     legend.append('text')
     .attr('x', legendRectSize + legendSpacing)
     .attr('y', legendRectSize - legendSpacing)
-    .text(function(d) { 
-      console.log(d);
-      return d; });
+    .text(function(d) {
+    return d; });
 
-  },
-
-  clearDisplay: function() {
-    $('.stats').children().remove();
   }
 };
 
