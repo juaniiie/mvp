@@ -18,15 +18,16 @@ var app = {
       success: function(repos) {
         console.log('Success! We have retrieved all repos for user: ' + username);
         //for each repo make another ajax request for languages
-        _.each(repos, function(repo) {
+        _.each(repos, function(repo, index) {
           var repoName = repo.name;
           $.ajax({
             url:'https://api.github.com/repos/' + username + '/' + repoName + '/languages',
             type: 'GET',
             success: function(languages) {
               console.log('Success! We have retrieved languages for repo: ' + repoName);
-              app.display(repoName, languages);
-              app.createPie(languages, repoName);
+              app.display(repoName, languages, index);
+              app.createPie(languages, repoName, index);
+
             },
             error: function(languages) {
               console.log('Error: unable to get languages for repo: ' + repoName);
@@ -40,22 +41,23 @@ var app = {
     });
   },
 
-  display: function(repoName, languages) {
+  display: function(repoName, languages, index) {
     var totalBytes = 0;
     _.each(languages, function(bytes) {
       totalBytes += bytes;
     });
-    $('<div class="repo" id="chart">' + repoName + '</div>').appendTo($('.stats'));
+    $('<div class="repo" id="chart' + index + '">' + repoName + '</div>').appendTo($('.stats'));
     //
     //appending text and percentages
-    _.each(languages, function(bytes, langName, languages) {
-      var ratio = ((bytes / totalBytes) * 100).toFixed(1);
-      $('<div class="langName">' + langName + ':' + ratio + '%' + '</div>')
-        .appendTo($('.repo:last-child'));
-    });
+    // _.each(languages, function(bytes, langName, languages) {
+    //   var ratio = ((bytes / totalBytes) * 100).toFixed(1);
+    //   $('<div class="langName">' + langName + ':' + ratio + '%' + '</div>')
+    //     .appendTo($('.repo:last-child'));
+
+    // });
   },
 
-  createPie: function(languages, repoName) {
+  createPie: function(languages, repoName, index) {
     var dataset = [];
     var totalBytes = 0;
     _.each(languages, function(bytes, langName) {
@@ -69,56 +71,66 @@ var app = {
     var color = d3.scale.category20b();
     var donutWidth = 75;
     
-    var svg = d3.select('#chart')
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
-      .append('g')
-      .attr('transform', 'translate(' + (width / 2) +  ',' + (height / 2) + ')');
+    var svg = d3.select('#chart' + index)
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height)
+    .append('g')
+    .attr('transform', 'translate(' + (width / 2) +  ',' + (height / 2) + ')');
 
     var arc = d3.svg.arc()
-      .innerRadius(radius - donutWidth)
-      .outerRadius(radius);
+    .innerRadius(radius - donutWidth) 
+    .outerRadius(radius);
 
     var pie = d3.layout.pie()
-      .value(function(d) { return d.count; })
-      .sort(null);
+    .value(function(d) { return d.count; })
+    .sort(null);
 
     var path = svg.selectAll('path')
-      .data(pie(dataset))
-      .enter()
-      .append('path')
-      .attr('d', arc)
-      .attr('fill', function(d, i) {
-        return color(d.data.label + ':' + (((d.data.count / totalBytes) * 100).toFixed(1)) + '%');
-      });
+    .data(pie(dataset))
+    .enter()
+    .append('path')
+    .attr('d', arc)
+    .attr('fill', function(d, i) {
+      return color(d.data.label + ':' + (((d.data.count / totalBytes) * 100).toFixed(1)) + '%');
+    });
 
     var legendRectSize = 18;
     var legendSpacing = 4;
 
+    var title = svg.selectAll('.title')
+    .append('g')
+    .attr('class', 'title')
+    .append('text')
+    .text(repoName);
+
     var legend = svg.selectAll('.legend')
-      .data(color.domain())
-      .enter()
-      .append('g')
-      .attr('class', 'legend')
-      .attr('transform', function(d, i) {
-        var height = legendRectSize + legendSpacing;
-        var offset =  height * color.domain().length / 2;
-        var horz = -2 * legendRectSize;
-        var vert = i * height - offset;
-        return 'translate(' + horz + ',' + vert + ')';
-      });
+    .data(color.domain())
+    .enter()
+    .append('g')
+    .attr('class', 'legend')
+    .attr('transform', function(d, i) {
+      var height = legendRectSize + legendSpacing;
+      var offset =  height * color.domain().length / 2;
+      var horz = -2 * legendRectSize;
+      var vert = i * height - offset;
+      return 'translate(' + horz + ',' + vert + ')';
+    });
 
     legend.append('rect')
-      .attr('width', legendRectSize)
-      .attr('height', legendRectSize)
-      .style('fill', color)
-      .style('stroke', color);
+    .attr('width', legendRectSize)
+    .attr('height', legendRectSize)
+    .style('fill', color)
+    .style('stroke', color);
+
 
     legend.append('text')
-      .attr('x', legendRectSize + legendSpacing)
-      .attr('y', legendRectSize - legendSpacing)
-      .text(function(d) { return d; });
+    .attr('x', legendRectSize + legendSpacing)
+    .attr('y', legendRectSize - legendSpacing)
+    .text(function(d) { 
+      console.log(d);
+      return d; });
+
   },
 
   clearDisplay: function() {
@@ -128,3 +140,5 @@ var app = {
 
 app.init();
 
+
+// return color(d.data.label + ':' + (((d.data.count / totalBytes) * 100).toFixed(1)) + '%');
