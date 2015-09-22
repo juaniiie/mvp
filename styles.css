@@ -4,6 +4,11 @@ header {
 form {
   text-align: center;
 }
-#container {
+.repo {
   text-align: center;
+  font-weight: bold;
+}
+#langName {
+  text-align: center;
+  font-style: normal;
 }

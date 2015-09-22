@@ -26,7 +26,6 @@ var app = {
             success: function(languages) {
               console.log('Success! We have retrieved languages for repo: ' + repoName);
               app.display(repoName, languages);
-
             },
             error: function(languages) {
               console.log('Error: unable to get languages for repo: ' + repoName);
@@ -45,17 +44,33 @@ var app = {
     _.each(languages, function(bytes) {
       totalBytes += bytes;
     });
-    $('<div class="repoName">' + repoName + '</div>').appendTo($('.stats'));
+    $('<div class="repo" id="repoName">' + repoName + '</div>').appendTo($('.stats'));
+    //
+    //appending text and percentages
     _.each(languages, function(bytes, langName) {
       var ratio = ((bytes / totalBytes) * 100).toFixed(1);
-      $('<div>' + langName + ':' + ratio + '%' + '</div>')
-        .appendTo($('.repoName:last-child'));
+      $('<div id="langName" >' + langName + ':' + ratio + '%' + '</div>')
+        .appendTo($('.repo:last-child'));
     });
+    //end of each
+
+    //from tutorial
+    // var dataset = _.map(languages)
+
+    // [
+    // { label: 'Abulia', count: 10 },
+    // { label: 'Betelgeuse', count: 20 },
+    // { label: 'Cantaloupe', count: 30 },
+    // { label: 'Dijkstra', count: 40 }
+    // ];
+
+
   },
 
   clearDisplay: function() {
     $('#repos').children().remove();
   }
 };
+
 app.init();
 
